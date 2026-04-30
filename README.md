@@ -11,7 +11,8 @@
 
 - API 키는 Worker에 숨김
 - CORS, 모델 화이트리스트도 Worker가 처리
-- 프론트는 `fetch` 한 줄
+- 같은 Worker에서 챗봇 UI(`/chat`)와 API(`/v1/*`) 둘 다 서빙
+- 프론트는 `fetch` 한 줄, 텍스트/이미지 입력 지원
 
 ## 빠른 시작 (5분)
 
@@ -31,11 +32,8 @@ cp .dev.vars.example .dev.vars
 ```bash
 npm run dev
 ```
-다른 터미널에서:
-```bash
-open demo.html
-```
-Worker URL 입력란에 `http://localhost:8787` 그대로 두고 메시지 전송 → 스트리밍 응답 확인.
+브라우저에서 [http://localhost:8787/chat](http://localhost:8787/chat) 접속 → 메시지 전송 → 스트리밍 응답.
+Worker URL 입력란은 자동으로 현재 도메인이 채워집니다.
 
 ### 4. Cloudflare 배포
 ```bash
@@ -43,7 +41,10 @@ npx wrangler login
 npx wrangler secret put OPENROUTER_KEY
 npm run deploy
 ```
-발급된 `https://gemma-proxy.<당신아이디>.workers.dev` 가 인터넷 어디서나 호출 가능한 엔드포인트.
+배포 끝나면:
+- `https://gemma-proxy.<당신아이디>.workers.dev/chat` → 챗봇 UI
+- `https://gemma-proxy.<당신아이디>.workers.dev/v1/chat/completions` → API
+- 한 워커가 UI + API 둘 다 서빙 (별도 호스팅 불필요)
 
 ### 5. 보안 좁히기 (선택)
 배포 후 `wrangler.toml`에서 `ALLOWED_ORIGINS`를 본인 도메인으로 변경:

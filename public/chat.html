@@ -259,7 +259,7 @@ button.icon:hover:not(:disabled) {
   </div>
   <p>Cloudflare Worker → OpenRouter → Google Gemma 4</p>
   <div class="config">
-    <input type="text" id="worker-url" placeholder="Worker URL" value="http://localhost:8787">
+    <input type="text" id="worker-url" placeholder="Worker URL (자동: 현재 도메인)">
     <select id="model">
       <option value="google/gemma-4-31b-it:free">Gemma 4 31B (free)</option>
       <option value="google/gemma-4-26b-a4b-it:free">Gemma 4 26B A4B (멀티모달, free)</option>
@@ -295,6 +295,12 @@ const attachBtn = document.getElementById('attach-btn');
 const previewArea = document.getElementById('preview-area');
 const history = [];
 let pendingImage = null;
+
+if (!workerUrlInput.value) {
+  workerUrlInput.value = window.location.origin === 'null' || window.location.protocol === 'file:'
+    ? 'http://localhost:8787'
+    : window.location.origin;
+}
 
 sendBtn.addEventListener('click', send);
 promptInput.addEventListener('keydown', e => {

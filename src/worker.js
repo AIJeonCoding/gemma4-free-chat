@@ -19,7 +19,10 @@ export default {
 
     const url = new URL(request.url);
     if (!url.pathname.startsWith('/v1/')) {
-      return json({ error: 'not found' }, 404, cors);
+      if (url.pathname === '/') {
+        return Response.redirect(new URL('/chat', request.url).toString(), 302);
+      }
+      return env.ASSETS ? env.ASSETS.fetch(request) : json({ error: 'not found' }, 404, cors);
     }
 
     let body = null;
