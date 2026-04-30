@@ -1,0 +1,8 @@
+name = "gemma-proxy"
+main = "src/worker.js"
+compatibility_date = "2026-04-29"
+
+[vars]
+ALLOWED_ORIGINS = "*"
+SITE_NAME = "gemma-proxy"
+SITE_URL = ""
