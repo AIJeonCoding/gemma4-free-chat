@@ -20,8 +20,8 @@
 
 ### 2. 프로젝트 셋업
 ```bash
-git clone https://github.com/ijeon-yeong/gemma-4-free-chatbot.git
-cd gemma-4-free-chatbot
+git clone https://github.com/AIJeonCoding/gemma4-free-chat.git
+cd gemma4-free-chat
 npm install
 cp .dev.vars.example .dev.vars
 # .dev.vars 열어서 OPENROUTER_KEY=sk-or-v1-... 넣기
